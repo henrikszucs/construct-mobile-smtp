@@ -23,6 +23,7 @@ On Javascript, use code that is similar to the following.
 	    "smtpPassword": "password",
 	    "emailFrom": "emailFrom@domain.com",
 	    "emailTo": "emailTo@domain.com",
+	    "emailCC": "emailTo@domain.com",
 	    "subject": "email subject",
 	    "textBody": "write something within the body of the email",
 	    "attachments": ["attachment1", "attachment2"]
