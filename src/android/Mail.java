@@ -24,6 +24,7 @@ public class Mail extends javax.mail.Authenticator {
 
     private String[] _to;
     private String[] _cc;
+	private String[] _bcc;
     private String _from;
 
     private String _port;
@@ -98,6 +99,13 @@ public class Mail extends javax.mail.Authenticator {
 				}
 				msg.setRecipients(MimeMessage.RecipientType.CC, addressCC);
 			}
+			if((_bcc != null)){
+				InternetAddress[] addressBCC = new InternetAddress[_bcc.length]; 
+				for (int i = 0; i < _bcc.length; i++) { 
+					addressBCC[i] = new InternetAddress(_bcc[i]); 
+				}
+				msg.setRecipients(MimeMessage.RecipientType.BCC, addressBCC);
+			}
 			
             msg.setSubject(_subject);
             msg.setSentDate(new Date());
@@ -143,6 +151,14 @@ public class Mail extends javax.mail.Authenticator {
 
 	public void set_cc(String[] _cc) {
 		this._cc = _cc;
+	}
+	
+	public String[] get_bcc() {
+		return _bcc;
+	}
+
+	public void set_bcc(String[] _bcc) {
+		this._bcc = _bcc;
 	}
 
     public void set_ssl(boolean _ssl) {

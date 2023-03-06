@@ -20,7 +20,7 @@
 	NSString *from = [json objectForKey:@"emailFrom"];
 	NSString *to = [json objectForKey:@"emailTo"];
 	NSString *cc = [json objectForKey:@"emailCC"];
-	NSString *bcc = [json objectForKey:@"bcc"];
+	NSString *bcc = [json objectForKey:@"emailBCC"];
 	NSString *smtpServer = [json objectForKey:@"smtp"];
 	NSString *smtpUser = [json objectForKey:@"smtpUserName"];
 	NSString *smtpPassword = [json objectForKey:@"smtpPassword"];

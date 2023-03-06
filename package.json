@@ -1,6 +1,6 @@
 {
   "name": "construct-mobile-smtp",
-  "version": "2.0.12",
+  "version": "2.1.1",
   "description": "Basic SMTP client for editing and sending email messages",
   "cordova": {
 		"id": "construct-mobile-smtp",
@@ -21,7 +21,7 @@
     "cordova-android",
     "cordova-ios"
   ],
-  "author": "Christian-W.Budde <CWBudde@pcjv.de> and others (see README.MD)",
+  "author": "Henrik Szűcs and others (see README.MD)",
   "license": "Apache-2.0",
   "engines": [
     {
