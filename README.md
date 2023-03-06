@@ -18,14 +18,14 @@ Install the plugin using any plugman compatible cli
 On Javascript, use code that is similar to the following.
 
 	var mailSettings = {
-	    emailFrom: "emailFrom@domain.com",
-	    emailTo: "emailTo@domain.com",
-	    smtp: "smtp-mail.domain.com",
-	    smtpUserName: "authuser@domain.com",
-	    smtpPassword: "password",
-	    attachments: ["attachment1", "attachment2"],
-	    subject: "email subject",
-	    textBody: "write something within the body of the email"
+	    "smtp": "smtp-mail.domain.com",
+	    "smtpUserName": "authuser@domain.com",
+	    "smtpPassword": "password",
+	    "emailFrom": "emailFrom@domain.com",
+	    "emailTo": "emailTo@domain.com",
+	    "subject": "email subject",
+	    "textBody": "write something within the body of the email",
+	    "attachments": ["attachment1", "attachment2"]
 	};
 	            
 	var success = function(message) {
