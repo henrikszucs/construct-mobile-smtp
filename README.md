@@ -30,11 +30,11 @@ On Javascript, use code that is similar to the following.
 	    "attachments": ["image/png//test.png//iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=""]
 	};
 	            
-	var success = function(message) {
-		alert(message);
+	var success = function() {
+		alert("OK");
 	}
 	
-	var failure = function(message) {
+	var failure = function() {
 		alert("Error sending the email");
 	}			
 				
