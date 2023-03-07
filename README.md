@@ -38,14 +38,14 @@ On Javascript, use code that is similar to the following.
 The attachments has 4 array.
 
 Name, Role, Type, Base64
-
-attachmentsName: file name with extension
-attachmentsRole: in string format "0" or "1" or "2"
-	"0" is normal attachment
-	"1" attachment only available email (useful for pictures) in cid link (Content-ID header) e.g. <img src=\"cid:image.png\">
-	"2" attachment behave normal and available as cid link
-attachmentsType: MIME type in string
-attachmentsBase64: content in Base64 string
+<br />
+attachmentsName: file name with extension <br />
+attachmentsRole: in string format "0" or "1" or "2" <br />
+	"0" is normal attachment <br />
+	"1" attachment only available email (useful for pictures) in cid link (Content-ID header) e.g. <img src=\"cid:image.png\"> <br />
+	"2" attachment behave normal and available as cid link <br />
+attachmentsType: MIME type in string <br />
+attachmentsBase64: content in Base64 string <br />
 
 ### Return type
 	
