@@ -67,20 +67,41 @@
 	NSArray *files = [json objectForKey:@"attachments"];
 
 	NSError *error = nil;
-	
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\/(.*)\;" options:NSRegularExpressionCaseInsensitive error:&error];
-
 		
 	for (NSString *file in files) {
-
-		NSArray* imageDataSplitByComma = [file componentsSeparatedByString:@","];
+		NSArray *data = [file componentsSeparatedByString:@"//"];
+        NSString *filetype = data[0];
+        NSString *filename = data[1];
+                
+        NSMutableString *attachedFilename = [
+           NSMutableString stringWithString:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\""
+        ];
+        [attachedFilename appendString:filename];
+        
+        NSData *fileData = [[NSData alloc] initWithBase64EncodedString:[data objectAtIndex:2] options:0];
+                
+        NSMutableString *attachementString = [NSMutableString stringWithString:@"attachment;\r\n\tfilename=\""];
+        [attachementString appendString:filename];
+        [attachementString appendString:@"\""];
+                
+        NSDictionary *filePart = [
+        NSDictionary dictionaryWithObjectsAndKeys:attachedFilename,
+      kSKPSMTPPartContentTypeKey,
+            attachementString, kSKPSMTPPartContentDispositionKey,
+      [fileData encodeBase64ForData], kSKPSMTPPartMessageKey, @"base64",
+      kSKPSMTPPartContentTransferEncodingKey, nil
+    ];
+                
+        [partsToSend addObject:filePart];
+        
+        /*
 	
 		NSTextCheckingResult *match = [
 			regex firstMatchInString:file
 			options:0
 			range:NSMakeRange(0, [file length])
-    ];
-				
+         ];
+        
 		NSMutableString *fileName = [NSMutableString stringWithString:@"attachment."];
 		if (match) {
 			[fileName appendString:[file substringWithRange:[match rangeAtIndex:1]]];
@@ -89,11 +110,11 @@
 		}
 				
 		NSMutableString *attachedFilename = [
-      NSMutableString stringWithString:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\""
-    ];
-		[attachedFilename appendString:fileName];
-				
-		NSData *fileData = [[NSData alloc] initWithBase64EncodedString:[imageDataSplitByComma objectAtIndex:1] options:0];
+           NSMutableString stringWithString:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\""
+        ];
+        [attachedFilename appendString:fileName];
+        
+        NSData *fileData = [[NSData alloc] initWithBase64EncodedString:[imageDataSplitByComma objectAtIndex:1] options:0];
 				
 		NSMutableString *attachementString = [NSMutableString stringWithString:@"attachment;\r\n\tfilename=\""];
 		[attachementString appendString:fileName];
@@ -108,6 +129,7 @@
     ];
 				
 		[partsToSend addObject:filePart];
+         */
 	}
 		
 	message.parts = partsToSend;
