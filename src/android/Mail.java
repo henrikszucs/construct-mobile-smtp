@@ -17,6 +17,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.PreencodedMimeBodyPart;
 
 public class Mail extends javax.mail.Authenticator {
     private String _user;
@@ -118,7 +119,7 @@ public class Mail extends javax.mail.Authenticator {
             // Put parts in message
             //msg.setContent(_body,"text/html; charset=utf-8");
             msg.setContent(_multipart);
-			 
+
 
             // send email
             Transport.send(msg);
@@ -129,13 +130,15 @@ public class Mail extends javax.mail.Authenticator {
         }
     }
 
-    public void addAttachment(String filename) throws Exception {
-        BodyPart messageBodyPart = new MimeBodyPart();
-        DataSource source = new FileDataSource(filename);
-        messageBodyPart.setDataHandler(new DataHandler(source));
-        messageBodyPart.setFileName(filename);
+    public void addAttachment(String data) throws Exception {
+        String filetype = data.split("//")[0];
+        String filename = data.split("//")[1];
+        String filedata = data.split("//")[2];
+        BodyPart filePart = new PreencodedMimeBodyPart("base64");
+        filePart.setContent(filedata, filetype);
+        filePart.setFileName(filename);
 
-        _multipart.addBodyPart(messageBodyPart);
+        _multipart.addBodyPart(filePart);
     }
 
     public String[] get_to() {
