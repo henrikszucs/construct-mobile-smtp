@@ -27,10 +27,10 @@ On Javascript, use code that is similar to the following.
 	    "emailBCC": "emailTo@domain.com",
 	    "subject": "email subject",
 	    "textBody": "write something within the body<b>Hello world?<img src=\"cid:image.png\"></b> of the email",
-    	    "attachmentsName": ["image.png"],
-            "attachmentsRole": ["2"],
-    	    "attachmentsType": ["image/png"],
-    	    "attachmentsBase64": ["iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAARSURBVDhPYxgFo2AUQAEDAwADEAABuGyTOQAAAABJRU5ErkJggg=="]
+	    "attachmentsName": ["image.png"],
+	    "attachmentsRole": ["2"],
+	    "attachmentsType": ["image/png"],
+	    "attachmentsBase64": ["iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAARSURBVDhPYxgFo2AUQAEDAwADEAABuGyTOQAAAABJRU5ErkJggg=="]
 	};
 
 ### Attachments
