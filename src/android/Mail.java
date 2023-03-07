@@ -4,9 +4,6 @@ import java.util.Date;
 import java.util.Properties;
 
 import javax.activation.CommandMap;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 import javax.activation.MailcapCommandMap;
 import javax.mail.BodyPart;
 import javax.mail.Multipart;
@@ -113,10 +110,12 @@ public class Mail extends javax.mail.Authenticator {
 
             // setup message body
             BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setText(_body);
+            messageBodyPart.setContent(_body, "text/html; charset=utf-8");
+
             _multipart.addBodyPart(messageBodyPart);
 
             // Put parts in message
+            //messageBodyPart.setText(_body);
             //msg.setContent(_body,"text/html; charset=utf-8");
             msg.setContent(_multipart);
 
@@ -130,15 +129,20 @@ public class Mail extends javax.mail.Authenticator {
         }
     }
 
-    public void addAttachment(String data) throws Exception {
-        String filetype = data.split("//")[0];
-        String filename = data.split("//")[1];
-        String filedata = data.split("//")[2];
-        BodyPart filePart = new PreencodedMimeBodyPart("base64");
-        filePart.setContent(filedata, filetype);
-        filePart.setFileName(filename);
-
-        _multipart.addBodyPart(filePart);
+    public void addAttachment(String filename, String filerole, String filetype, String filedata) throws Exception {
+        if (filerole.equals("0") || filerole.equals("2")) {
+            BodyPart filePart = new PreencodedMimeBodyPart("base64");
+            filePart.setContent(filedata, filetype);
+            filePart.setFileName(filename);
+            _multipart.addBodyPart(filePart);
+        }
+        if (filerole.equals("1") || filerole.equals("2")) {
+            BodyPart filePart = new PreencodedMimeBodyPart("base64");
+            filePart.setContent(filedata, filetype);
+            filePart.setFileName(filename);
+            filePart.setHeader("Content-ID", "<" + filename + ">");
+            _multipart.addBodyPart(filePart);
+        }
     }
 
     public String[] get_to() {
