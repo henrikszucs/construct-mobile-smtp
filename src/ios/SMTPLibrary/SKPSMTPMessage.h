@@ -50,6 +50,7 @@ typedef NSUInteger SKPSMTPState;
 // Message part keys
 extern NSString *kSKPSMTPPartContentDispositionKey;
 extern NSString *kSKPSMTPPartContentTypeKey;
+extern NSString *kSKPSMTPPartContentId;
 extern NSString *kSKPSMTPPartMessageKey;
 extern NSString *kSKPSMTPPartContentTransferEncodingKey;
 
