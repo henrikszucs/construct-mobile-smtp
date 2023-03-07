@@ -27,7 +27,7 @@ On Javascript, use code that is similar to the following.
 	    "emailBCC": "emailTo@domain.com",
 	    "subject": "email subject",
 	    "textBody": "write something within the body of the email",
-	    "attachments": ["attachment1", "attachment2"]
+	    "attachments": ["image/png//test.png//iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=""]
 	};
 	            
 	var success = function(message) {
