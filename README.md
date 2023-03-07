@@ -26,37 +26,30 @@ On Javascript, use code that is similar to the following.
 	    "emailCC": "emailTo@domain.com",
 	    "emailBCC": "emailTo@domain.com",
 	    "subject": "email subject",
-	    "textBody": "write something within the body of the email",
-	    "attachments": ["image/png//test.png//iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=""]
+	    "textBody": "write something within the body<b>Hello world?<img src=\"cid:image.png\"></b> of the email",
+    	    "attachmentsName": ["image.png"],
+            "attachmentsRole": ["2"],
+    	    "attachmentsType": ["image/png"],
+    	    "attachmentsBase64": ["iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAARSURBVDhPYxgFo2AUQAEDAwADEAABuGyTOQAAAABJRU5ErkJggg=="]
 	};
-	            
-	var success = function() {
-		alert("OK");
-	}
-	
-	var failure = function() {
-		alert("Error sending the email");
-	}			
-				
-	smtpClient.sendMail(mailSettings, success, failure);
 
 ### Attachments
 
-The attachments is an array of strings.
+The attachments has 4 array.
 
-On the iOS platform, it must use a [DATA_URI format](doc/attachments.md).
+Name, Role, Type, Base64
 
-On the Android platform, it must be the path to the file.
+attachmentsName: file name with extension
+attachmentsRole: in string format "0" or "1" or "2"
+	"0" is normal attachment
+	"1" attachment only available email (useful for pictures) in cid link (Content-ID header) e.g. <img src=\"cid:image.png\">
+	"2" attachment behave normal and available as cid link
+attachmentsType: MIME type in string
+attachmentsBase64: content in Base64 string
 
 ### Return type
 	
-The return object "message" has the following structure
-
-	{
-		success: boolean,
-		errorCode: number,
-		errorMessage: string	    
-	}
+Method result call failed or success callback function.
 
 ## Copyright
 
