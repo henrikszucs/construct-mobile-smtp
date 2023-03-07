@@ -80,7 +80,6 @@ public class SMTPClient extends CordovaPlugin {
     }
 
     private void sendEmailViaGmail(JSONObject json) throws Exception {
-
         Mail m = new Mail(json.getString("smtpUserName"), json.getString("smtpPassword"));
         String[] toArr = json.getString("emailTo").split(",");
         String emailCC = json.optString("emailCC");
@@ -95,14 +94,17 @@ public class SMTPClient extends CordovaPlugin {
         m.set_body(json.getString("textBody"));
         m.set_subject(json.getString("subject"));
 
-        JSONArray attachments = json.getJSONArray("attachments");
-        if(attachments != null){
-            for(int i=0; i < attachments.length(); i++){
-                String fileFullName = attachments.getString(i);
-                if(fileFullName.contains(":")){
-                    fileFullName = fileFullName.split(":")[1];
-                }
-                m.addAttachment(fileFullName);
+        JSONArray attachmentsName = json.getJSONArray("attachmentsName");
+        JSONArray attachmentsRole = json.getJSONArray("attachmentsRole");
+        JSONArray attachmentsType = json.getJSONArray("attachmentsType");
+        JSONArray attachmentsBase64 = json.getJSONArray("attachmentsBase64");
+        if(attachmentsName != null){
+            for(int i=0; i < attachmentsName.length(); i++){
+                String attachmentsNameString = attachmentsName.getString(i);
+                String attachmentsRoleString = attachmentsRole.getString(i);
+                String attachmentsTypeString = attachmentsType.getString(i);
+                String attachmentsBase64String = attachmentsBase64.getString(i);
+                m.addAttachment(attachmentsNameString, attachmentsRoleString, attachmentsTypeString, attachmentsBase64String);
             }
         }
 
