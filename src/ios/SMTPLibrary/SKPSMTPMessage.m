@@ -35,6 +35,7 @@
 
 NSString *kSKPSMTPPartContentDispositionKey = @"kSKPSMTPPartContentDispositionKey";
 NSString *kSKPSMTPPartContentTypeKey = @"kSKPSMTPPartContentTypeKey";
+NSString *kSKPSMTPPartContentId = @"kSKPSMTPPartContentId";
 NSString *kSKPSMTPPartMessageKey = @"kSKPSMTPPartMessageKey";
 NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransferEncodingKey";
 
@@ -887,6 +888,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
             [message appendFormat:@"Content-Disposition: %@\r\n", [part objectForKey:kSKPSMTPPartContentDispositionKey]];
         }
         [message appendFormat:@"Content-Type: %@\r\n", [part objectForKey:kSKPSMTPPartContentTypeKey]];
+        [message appendFormat:@"Content-ID: %@\r\n", [part objectForKey:kSKPSMTPPartContentId]];
         [message appendFormat:@"Content-Transfer-Encoding: %@\r\n\r\n", [part objectForKey:kSKPSMTPPartContentTransferEncodingKey]];
         [message appendString:[part objectForKey:kSKPSMTPPartMessageKey]];
         [message appendString:@"\r\n"];
@@ -945,4 +947,4 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
     outputStream = nil;
 }
 
-@end
+@end 
