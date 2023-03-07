@@ -64,35 +64,49 @@
 		
 	NSMutableArray *partsToSend = [NSMutableArray arrayWithObjects:plainPart, nil];
 		
-	NSArray *files = [json objectForKey:@"attachments"];
+	NSArray *fileNames = [json objectForKey:@"attachmentsName"];
+    NSArray *fileRoles = [json objectForKey:@"attachmentsRole"];
+    NSArray *fileTypes = [json objectForKey:@"attachmentsType"];
+    NSArray *fileBase64 = [json objectForKey:@"attachmentsBase64"];
 
 	NSError *error = nil;
 		
-	for (NSString *file in files) {
-		NSArray *data = [file componentsSeparatedByString:@"//"];
-        NSString *filetype = data[0];
-        NSString *filename = data[1];
-                
-        NSMutableString *attachedFilename = [
-           NSMutableString stringWithString:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\""
-        ];
-        [attachedFilename appendString:filename];
+	for (int i = 0; i < [fileNames count]; i++) {
         
-        NSData *fileData = [[NSData alloc] initWithBase64EncodedString:[data objectAtIndex:2] options:0];
+        //content type
+        NSMutableString *attachedFilename = [
+           NSMutableString stringWithString:@""
+        ];
+        [attachedFilename appendString:fileTypes[i]];
+        [attachedFilename appendString:@";\r\n\tx-unix-mode=0644;\r\n\tname=\""];
+        [attachedFilename appendString:fileNames[i]];
+        
+        NSData *fileData = [[NSData alloc] initWithBase64EncodedString:[fileBase64 objectAtIndex:i] options:0];
                 
         NSMutableString *attachementString = [NSMutableString stringWithString:@"attachment;\r\n\tfilename=\""];
-        [attachementString appendString:filename];
+        [attachementString appendString:fileNames[i]];
         [attachementString appendString:@"\""];
-                
-        NSDictionary *filePart = [
-        NSDictionary dictionaryWithObjectsAndKeys:attachedFilename,
-      kSKPSMTPPartContentTypeKey,
-            attachementString, kSKPSMTPPartContentDispositionKey,
-      [fileData encodeBase64ForData], kSKPSMTPPartMessageKey, @"base64",
-      kSKPSMTPPartContentTransferEncodingKey, nil
-    ];
-                
-        [partsToSend addObject:filePart];
+        if ([fileRoles[i] isEqualToString:@"0"] || [fileRoles[i] isEqualToString:@"2"]) {
+            NSDictionary *filePart = [
+                NSDictionary dictionaryWithObjectsAndKeys:attachedFilename, kSKPSMTPPartContentTypeKey,
+                attachementString, kSKPSMTPPartContentDispositionKey,
+                [fileData encodeBase64ForData], kSKPSMTPPartMessageKey,
+                @"base64", kSKPSMTPPartContentTransferEncodingKey,
+                nil
+            ];
+            [partsToSend addObject:filePart];
+        }
+        if ([fileRoles[i] isEqualToString:@"1"] || [fileRoles[i] isEqualToString:@"2"]) {
+            NSDictionary *filePart = [
+                NSDictionary dictionaryWithObjectsAndKeys:attachedFilename, kSKPSMTPPartContentTypeKey,
+                fileNames[i], kSKPSMTPPartContentId,
+                attachementString, kSKPSMTPPartContentDispositionKey,
+                [fileData encodeBase64ForData], kSKPSMTPPartMessageKey,
+                @"base64", kSKPSMTPPartContentTransferEncodingKey,
+                nil
+            ];
+            [partsToSend addObject:filePart];
+        }
         
         /*
 	
@@ -190,4 +204,4 @@
 	//NSLog(@"delegate - error(%d): %@", [error code], [error localizedDescription]);
 }
 
-@end
+@end 
