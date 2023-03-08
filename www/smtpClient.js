@@ -9,7 +9,7 @@ var smtpClient = {
             }
         }
         if (mailSettings["smtp"] === "" || mailSettings["smtpUserName"]  === "" || mailSettings["smtpPassword"] === "") {
-            successCallback();
+            errorCallback();
         } else {
             cordova.exec(successCallback, errorCallback, "SMTPClient", "cordovaSendMail", [ JSON.stringify(mailSettings) ]);
         }
