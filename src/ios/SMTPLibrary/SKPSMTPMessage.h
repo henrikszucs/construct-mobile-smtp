@@ -83,6 +83,7 @@ extern NSString *kSKPSMTPPartContentTransferEncodingKey;
     NSArray *relayPorts;
     
     NSString *subject;
+    NSString *priority;
     NSString *fromEmail;
     NSString *toEmail;
 	NSString *ccEmail;
@@ -128,6 +129,7 @@ extern NSString *kSKPSMTPPartContentTransferEncodingKey;
 @property(nonatomic, assign) BOOL validateSSLChain;
 
 @property(nonatomic, retain) NSString *subject;
+@property(nonatomic, retain) NSString *priority;
 @property(nonatomic, retain) NSString *fromEmail;
 @property(nonatomic, retain) NSString *toEmail;
 @property(nonatomic, retain) NSString *ccEmail;
@@ -140,4 +142,4 @@ extern NSString *kSKPSMTPPartContentTransferEncodingKey;
 
 - (BOOL)send;
 
-@end
+@end 
