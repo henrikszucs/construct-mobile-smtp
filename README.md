@@ -17,7 +17,7 @@ Install the plugin using any plugman compatible cli
 
 On Javascript, use code that is similar to the following.
 
-	var mailSettings = {
+	let mailSettings = {
 	    "smtp": "smtp-mail.domain.com",
 	    "smtpUserName": "authuser@domain.com",
 	    "smtpPassword": "password",
@@ -33,6 +33,15 @@ On Javascript, use code that is similar to the following.
 	    "attachmentsType": ["image/png"],
 	    "attachmentsBase64": ["iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAARSURBVDhPYxgFo2AUQAEDAwADEAABuGyTOQAAAABJRU5ErkJggg=="]
 	};
+	let success = function(message) {
+		alert("OK")
+	}
+
+	let failure = function(message) {
+		alert("Error sending the email");
+	}			
+			
+	window.smtpClient.sendMail(mailSettings, success, failure);
 
 ### Attachments
     priority: "low" or "normal" or "high"
