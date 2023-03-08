@@ -25,6 +25,7 @@
 	NSString *smtpUser = [json objectForKey:@"smtpUserName"];
 	NSString *smtpPassword = [json objectForKey:@"smtpPassword"];
 	NSString *textBody = [json objectForKey:@"textBody"];
+	NSString *priority = [json objectForKey:@"priority"];
 		
 	SKPSMTPMessage *message = [[SKPSMTPMessage alloc] init];
 		
@@ -49,6 +50,7 @@
 	message.wantsSecure = true; // smtp.gmail.com doesn't work without TLS!
 		
 	message.subject = [json objectForKey:@"subject"];
+    message.priority = [json objectForKey:@"priority"];
 		
 	// Only do this for self-signed certs, test only
 	// testMsg.validateSSLChain = NO;
@@ -68,8 +70,6 @@
     NSArray *fileRoles = [json objectForKey:@"attachmentsRole"];
     NSArray *fileTypes = [json objectForKey:@"attachmentsType"];
     NSArray *fileBase64 = [json objectForKey:@"attachmentsBase64"];
-
-	NSError *error = nil;
 		
 	for (int i = 0; i < [fileNames count]; i++) {
         
