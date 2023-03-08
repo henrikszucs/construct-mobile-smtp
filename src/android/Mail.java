@@ -86,20 +86,22 @@ public class Mail extends javax.mail.Authenticator {
 
         msg.setFrom(new InternetAddress(_from));
 
-        InternetAddress[] addressTo = new InternetAddress[_to.length];
-        for (int i = 0; i < _to.length; i++) {
-            addressTo[i] = new InternetAddress(_to[i]);
+        if((_to != null)) {
+            InternetAddress[] addressTo = new InternetAddress[_to.length];
+            for (int i = 0; i < _to.length; i++) {
+                addressTo[i] = new InternetAddress(_to[i]);
+            }
+            msg.setRecipients(MimeMessage.RecipientType.TO, addressTo);
         }
-        msg.setRecipients(MimeMessage.RecipientType.TO, addressTo);
 
-        if((_cc != null)){
+        if((_cc != null)) {
             InternetAddress[] addressCC = new InternetAddress[_cc.length];
             for (int i = 0; i < _cc.length; i++) {
                 addressCC[i] = new InternetAddress(_cc[i]);
             }
             msg.setRecipients(MimeMessage.RecipientType.CC, addressCC);
         }
-        if((_bcc != null)){
+        if((_bcc != null)) {
             InternetAddress[] addressBCC = new InternetAddress[_bcc.length];
             for (int i = 0; i < _bcc.length; i++) {
                 addressBCC[i] = new InternetAddress(_bcc[i]);
