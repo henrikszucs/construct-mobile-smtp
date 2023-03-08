@@ -27,6 +27,7 @@ On Javascript, use code that is similar to the following.
 	    "emailBCC": "emailTo@domain.com",
 	    "subject": "email subject",
 	    "textBody": "write something within the body<b>Hello world?<img src=\"cid:image.png\"></b> of the email",
+	    "priority"
 	    "attachmentsName": ["image.png"],
 	    "attachmentsRole": ["2"],
 	    "attachmentsType": ["image/png"],
@@ -34,6 +35,7 @@ On Javascript, use code that is similar to the following.
 	};
 
 ### Attachments
+    priority: "low" or "normal" or "high"
 
     The attachments has 4 array.
 
