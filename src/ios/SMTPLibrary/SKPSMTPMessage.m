@@ -60,7 +60,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
 
 @implementation SKPSMTPMessage
 
-@synthesize login, pass, relayHost, relayPorts, subject, fromEmail, toEmail, parts, requiresAuth, inputString, wantsSecure, \
+@synthesize login, pass, relayHost, relayPorts, subject, priority, fromEmail, toEmail, parts, requiresAuth, inputString, wantsSecure, \
             delegate, connectTimer, connectTimeout, watchdogTimer, validateSSLChain;
 @synthesize ccEmail;
 @synthesize bccEmail;
@@ -100,6 +100,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
     self.relayHost = nil;
     self.relayPorts = nil;
     self.subject = nil;
+    self.priority = nil;
     self.fromEmail = nil;
     self.toEmail = nil;
 	self.ccEmail = nil;
@@ -132,6 +133,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
     smtpMessageCopy.relayHost = self.relayHost;
     smtpMessageCopy.requiresAuth = self.requiresAuth;
     smtpMessageCopy.subject = self.subject;
+    smtpMessageCopy.priority = self.priority;
     smtpMessageCopy.toEmail = self.toEmail;
     smtpMessageCopy.wantsSecure = self.wantsSecure;
     smtpMessageCopy.validateSSLChain = self.validateSSLChain;
@@ -245,6 +247,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
     
     NSAssert(relayHost, @"send requires relayHost");
     NSAssert(subject, @"send requires subject");
+    NSAssert(priority, @"send requires priority");
     NSAssert(fromEmail, @"send requires fromEmail");
     NSAssert(toEmail, @"send requires toEmail");
     NSAssert(parts, @"send requires parts");
@@ -867,6 +870,19 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
     
     [message appendString:@"Content-Type: multipart/mixed; boundary=SKPSMTPMessage--Separator--Delimiter\r\n"];
     [message appendString:@"Mime-Version: 1.0 (SKPSMTPMessage 1.0)\r\n"];
+    if ([priority isEqualToString:@"low"]) {
+        [message appendString:@"Priority: Non-Urgent\r\n"];
+        [message appendString:@"X-Priority: 5 (Lowest)\r\n"];
+        [message appendString:@"X-Msmail-Priority: Low\r\n"];
+    } else if ([priority isEqualToString:@"normal"]) {
+        [message appendString:@"Priority: Normal\r\n"];
+        [message appendString:@"X-Priority: 3 (Normal)\r\n"];
+        [message appendString:@"X-Msmail-Priority: Normal\r\n"];
+    } else if ([priority isEqualToString:@"high"]) {
+        [message appendString:@"Priority: Urgent\r\n"];
+        [message appendString:@"X-Priority: 1 (Highest)\r\n"];
+        [message appendString:@"X-Msmail-Priority: High\r\n"];
+    }
     [message appendFormat:@"Subject:%@\r\n\r\n",subject];
     [message appendString:separatorString];
     
