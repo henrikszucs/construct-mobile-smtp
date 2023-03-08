@@ -79,72 +79,65 @@ public class Mail extends javax.mail.Authenticator {
     public boolean send() throws Exception {
         Properties props = _setProperties();
 
-        if (!_user.equals("") && !_pass.equals("") && _to.length > 0 && !_from.equals("") && !_subject.equals("") && !_body.equals("")) {
-            Session session = Session.getInstance(props, this);
 
-            MimeMessage msg = new MimeMessage(session);
+        Session session = Session.getInstance(props, this);
 
-            msg.setFrom(new InternetAddress(_from));
+        MimeMessage msg = new MimeMessage(session);
 
-            InternetAddress[] addressTo = new InternetAddress[_to.length];
-            for (int i = 0; i < _to.length; i++) {
-                addressTo[i] = new InternetAddress(_to[i]);
-            }
-            msg.setRecipients(MimeMessage.RecipientType.TO, addressTo);
+        msg.setFrom(new InternetAddress(_from));
 
-			if((_cc != null)){
-				InternetAddress[] addressCC = new InternetAddress[_cc.length]; 
-				for (int i = 0; i < _cc.length; i++) { 
-					addressCC[i] = new InternetAddress(_cc[i]); 
-				}
-				msg.setRecipients(MimeMessage.RecipientType.CC, addressCC);
-			}
-			if((_bcc != null)){
-				InternetAddress[] addressBCC = new InternetAddress[_bcc.length]; 
-				for (int i = 0; i < _bcc.length; i++) { 
-					addressBCC[i] = new InternetAddress(_bcc[i]); 
-				}
-				msg.setRecipients(MimeMessage.RecipientType.BCC, addressBCC);
-			}
-			
-            msg.setSubject(_subject);
-            msg.setSentDate(new Date());
-            //set priority
-            if (_priority.equals("low")) {
-                msg.setHeader("Priority", "Non-Urgent");
-                msg.setHeader("X-Priority", "5 (Lowest)");
-                msg.setHeader("X-Msmail-Priority", "Low");
-            } else if (_priority.equals("normal")) {
-                msg.setHeader("Priority", "Normal");
-                msg.setHeader("X-Priority", "3 (Normal)");
-                msg.setHeader("X-Msmail-Priority", "Normal");
-            } else if (_priority.equals("high")) {
-                msg.setHeader("Priority", "Urgent");
-                msg.setHeader("X-Priority", "1 (Highest)");
-                msg.setHeader("X-Msmail-Priority", "High");
-            }
-
-            // setup message body
-            BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setContent(_body, "text/html; charset=utf-8");
-
-
-
-            _multipart.addBodyPart(messageBodyPart);
-
-            // Put parts in message
-            //messageBodyPart.setText(_body);
-            //msg.setContent(_body,"text/html; charset=utf-8");
-            msg.setContent(_multipart);
-
-
-            // send email
-            Transport.send(msg);
-
-            return true;
-        } else {
-            return false;
+        InternetAddress[] addressTo = new InternetAddress[_to.length];
+        for (int i = 0; i < _to.length; i++) {
+            addressTo[i] = new InternetAddress(_to[i]);
         }
+        msg.setRecipients(MimeMessage.RecipientType.TO, addressTo);
+
+        if((_cc != null)){
+            InternetAddress[] addressCC = new InternetAddress[_cc.length];
+            for (int i = 0; i < _cc.length; i++) {
+                addressCC[i] = new InternetAddress(_cc[i]);
+            }
+            msg.setRecipients(MimeMessage.RecipientType.CC, addressCC);
+        }
+        if((_bcc != null)){
+            InternetAddress[] addressBCC = new InternetAddress[_bcc.length];
+            for (int i = 0; i < _bcc.length; i++) {
+                addressBCC[i] = new InternetAddress(_bcc[i]);
+            }
+            msg.setRecipients(MimeMessage.RecipientType.BCC, addressBCC);
+        }
+			
+        msg.setSubject(_subject);
+        msg.setSentDate(new Date());
+        //set priority
+        if (_priority.equals("low")) {
+            msg.setHeader("Priority", "Non-Urgent");
+            msg.setHeader("X-Priority", "5 (Lowest)");
+            msg.setHeader("X-Msmail-Priority", "Low");
+        } else if (_priority.equals("normal")) {
+            msg.setHeader("Priority", "Normal");
+            msg.setHeader("X-Priority", "3 (Normal)");
+            msg.setHeader("X-Msmail-Priority", "Normal");
+        } else if (_priority.equals("high")) {
+            msg.setHeader("Priority", "Urgent");
+            msg.setHeader("X-Priority", "1 (Highest)");
+            msg.setHeader("X-Msmail-Priority", "High");
+        }
+
+        // setup message body
+        BodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent(_body, "text/html; charset=utf-8");
+        _multipart.addBodyPart(messageBodyPart);
+
+        // Put parts in message
+        //messageBodyPart.setText(_body);
+        //msg.setContent(_body,"text/html; charset=utf-8");
+        msg.setContent(_multipart);
+
+
+        // send email
+        Transport.send(msg);
+        return true;
     }
 
     public void addAttachment(String filename, String filerole, String filetype, String filedata) throws Exception {
