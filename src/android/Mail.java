@@ -32,6 +32,7 @@ public class Mail extends javax.mail.Authenticator {
 
     private String _subject;
     private String _body;
+    private String _priority;
 
     private boolean _auth;
     private boolean _ssl;
@@ -50,6 +51,7 @@ public class Mail extends javax.mail.Authenticator {
         _from = ""; // email sent from
         _subject = ""; // email subject
         _body = ""; // email body
+        _priority = "";
         _ssl = false;
 
         _debuggable = false; // debug mode on or off - default off
@@ -107,10 +109,26 @@ public class Mail extends javax.mail.Authenticator {
 			
             msg.setSubject(_subject);
             msg.setSentDate(new Date());
+            //set priority
+            if (_priority.equals("low")) {
+                msg.setHeader("Priority", "Non-Urgent");
+                msg.setHeader("X-Priority", "5 (Lowest)");
+                msg.setHeader("X-Msmail-Priority", "Low");
+            } else if (_priority.equals("normal")) {
+                msg.setHeader("Priority", "Normal");
+                msg.setHeader("X-Priority", "3 (Normal)");
+                msg.setHeader("X-Msmail-Priority", "Normal");
+            } else if (_priority.equals("high")) {
+                msg.setHeader("Priority", "Urgent");
+                msg.setHeader("X-Priority", "1 (Highest)");
+                msg.setHeader("X-Msmail-Priority", "High");
+            }
 
             // setup message body
             BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setContent(_body, "text/html; charset=utf-8");
+
+
 
             _multipart.addBodyPart(messageBodyPart);
 
@@ -200,9 +218,15 @@ public class Mail extends javax.mail.Authenticator {
     public String get_body() {
         return _body;
     }
-
     public void set_body(String _body) {
         this._body = _body;
+    }
+
+    public String get_priority() {
+        return _priority;
+    }
+    public void set_priority(String _priority) {
+        this._priority = _priority;
     }
 
     @Override
