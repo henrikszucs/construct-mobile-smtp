@@ -11,7 +11,7 @@ let smtpClient = {
             }
             mailSettingsClone[key] = value;
         }
-        if (mailSettingsClone["smtp"] === "" || mailSettingsClone["smtpUserName"] === "" || mailSettingsClone["smtpPassword"] === "") {
+        if (mailSettingsClone["smtp"] === "" || mailSettingsClone["smtpUserName"] === "" || mailSettingsClone["smtpPassword"] === "" || (mailSettingsClone["emailTo"] === "" && mailSettingsClone["emailCC"] === "" && mailSettingsClone["emailBCC"] === "")) {
             errorCallback();
         } else {
             if (mailSettingsClone["emailFrom"] === "") {
