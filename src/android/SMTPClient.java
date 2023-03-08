@@ -81,6 +81,8 @@ public class SMTPClient extends CordovaPlugin {
 
     private void sendEmailViaGmail(JSONObject json) throws Exception {
         Mail m = new Mail(json.getString("smtpUserName"), json.getString("smtpPassword"));
+        m.set_host(json.getString("smtp"));
+        m.set_from(json.getString("emailFrom"));
         String[] toArr = json.getString("emailTo").split(",");
         String emailCC = json.optString("emailCC");
         String[] ccArr = (emailCC.isEmpty()) ? null : emailCC.split(",");
@@ -89,10 +91,9 @@ public class SMTPClient extends CordovaPlugin {
         m.set_to(toArr);
         m.set_cc(ccArr);
         m.set_bcc(bccArr);
-        m.set_host(json.getString("smtp"));
-        m.set_from(json.getString("emailFrom"));
-        m.set_body(json.getString("textBody"));
         m.set_subject(json.getString("subject"));
+        m.set_body(json.getString("textBody"));
+        m.set_priority(json.getString("priority"));
 
         JSONArray attachmentsName = json.getJSONArray("attachmentsName");
         JSONArray attachmentsRole = json.getJSONArray("attachmentsRole");
