@@ -1,6 +1,6 @@
 {
   "name": "construct-mobile-smtp",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "Basic SMTP client for editing and sending email messages",
   "cordova": {
 		"id": "construct-mobile-smtp",
