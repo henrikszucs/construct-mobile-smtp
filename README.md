@@ -52,7 +52,7 @@ On Javascript, use code that is similar to the following.
     
 	attachmentsName: file name with extension
 	attachmentsRole: in string format "0" or "1" or "2"
-		"0" is normal attachment <br />
+		"0" is normal attachment
 		"1" attachment only available email (useful for pictures) in cid link (Content-ID header) e.g. <img src=\"cid:image.png\">
 		"2" attachment behave normal and available as cid link
 	attachmentsType: MIME type in string
