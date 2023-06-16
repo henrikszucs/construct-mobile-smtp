@@ -4,7 +4,7 @@ Basic SMTP client cordova plugin for editing and sending email messages.
 
 ## Installation
 
-Install iOS and/or Android platform
+Install iOS and/or Android platforms
 
     cordova platform add ios
     cordova platform add android
